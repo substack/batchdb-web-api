@@ -31,7 +31,7 @@ Server.prototype._createRouter = function () {
         if (req.method !== 'POST') return error(404, res, 'not a POST');
         req.pipe(self.compute.add(function (err, jobkey) {
             if (err) error(500, res, err);
-            else res.end(jobkey)
+            else res.end(jobkey + '\n')
         }));
     });
     

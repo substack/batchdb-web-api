@@ -5,6 +5,8 @@ var compute = batchdb(db, { path: '/tmp/compute.blobs' });
 var http = require('http');
 var batchweb = require('../')(compute);
 
+compute.run();
+
 var server = http.createServer(function (req, res) {
     if (batchweb.exec(req, res)) return;
     res.statusCode = 404;
