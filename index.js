@@ -3,14 +3,16 @@ var Router = require('routes');
 var through = require('through2');
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
+var prefix = require('route-prefix');
 
 module.exports = Server;
 inherits(Server, EventEmitter);
 
-function Server (compute) {
-    if (!(this instanceof Server)) return new Server(compute);
+function Server (compute, opts) {
+    if (!(this instanceof Server)) return new Server(compute, opts);
+    if (!opts) opts = {};
     this.compute = compute;
-    this.router = this._createRouter();
+    this.router = this._createRouter(opts);
 }
 
 Server.prototype.exec = function (req, res) {
@@ -23,9 +25,13 @@ Server.prototype.match = function (uri) {
     return this.router.match(uri);
 };
 
-Server.prototype._createRouter = function () {
+Server.prototype._createRouter = function (opts) {
     var self = this;
-    var router = Router();
+    if (!opts) opts = {};
+    var router = opts.prefix
+        ? prefix(opts.prefix, Router())
+        : Router()
+    ;
     
     router.addRoute('/create', function (req, res, m) {
         if (req.method !== 'POST') return error(404, res, 'not a POST');
