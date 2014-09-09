@@ -3,12 +3,12 @@ var db = require('level')('/tmp/compute.db');
 var compute = batchdb(db, { path: '/tmp/compute.blobs' });
 
 var http = require('http');
-var batchweb = require('../')(compute);
+var api = require('../')(compute);
 
 compute.run();
 
 var server = http.createServer(function (req, res) {
-    if (batchweb.exec(req, res)) return;
+    if (api.exec(req, res)) return;
     res.statusCode = 404;
     res.end('not found\n');
 });

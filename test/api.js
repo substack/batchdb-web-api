@@ -15,18 +15,24 @@ var tmpdir = path.join(
 mkdirp.sync(tmpdir);
 
 test('api', function (t) {
-    t.plan(7);
+    t.plan(9);
     
     var db = level(path.join(tmpdir, 'db'));
     var compute = batchdb(db, {
         path: path.join(tmpdir, 'blob'),
         run: function () {
             var input = concat(function (body) {
+                if (body.toString('utf8') === 'fail') {
+                    dup.emit('error', new Error('yo'));
+                    return;
+                }
+                
                 t.equal(body.toString('utf8'), 'robot');
                 output.end('beep boop\n');
             });
             var output = through();
-            return duplexer(input, output);
+            var dup = duplexer(input, output);
+            return dup;
         }
     });
     var api = webapi(compute);
@@ -54,6 +60,14 @@ test('api', function (t) {
     send('POST', '/create', function (body) {
         t.ok(/^[A-Fa-f0-9]{10,}\s*$/.test(body.toString('utf8')));
     }).end('robot');
+    
+    send('POST', '/create', function (body, res) {
+        t.ok(/^[A-Fa-f0-9]{10,}\s*$/.test(body.toString('utf8')));
+    }).end('fail');
+    
+    compute.on('fail', function (err) {
+        t.equal(err.message, 'yo');
+    });
     
     compute.run();
     
