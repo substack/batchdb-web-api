@@ -2,6 +2,8 @@
 
 expose the batchdb api as an http endpoint
 
+[![build status](https://secure.travis-ci.org/substack/batchdb-web-api.png)](http://travis-ci.org/substack/batchdb-web-api)
+
 # example
 
 ``` js
