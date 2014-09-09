@@ -1,0 +1,45 @@
+{
+  "name": "batchdb-web-api",
+  "version": "1.0.0",
+  "description": "expose the batchdb api as an http endpoint",
+  "main": "index.js",
+  "dependencies": {
+    "through2": "~0.6.1",
+    "inherits": "^2.0.1",
+    "route-prefix": "^1.0.1",
+    "routes": "^1.2.0"
+  },
+  "devDependencies": {
+    "batchdb": "^2.1.0",
+    "concat-stream": "^1.4.6",
+    "duplexer2": "~0.0.2",
+    "level": "~0.18.0",
+    "mkdirp": "~0.5.0",
+    "osenv": "~0.1.0",
+    "tape": "^2.13.2",
+    "covert": "^1.0.0"
+  },
+  "scripts": {
+    "test": "tape test/*.js",
+    "coverage": "covert test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/batchdb-web-api.git"
+  },
+  "homepage": "https://github.com/substack/batchdb-web-api",
+  "keywords": [
+    "batchdb",
+    "job",
+    "queue",
+    "http",
+    "api",
+    "web"
+  ],
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "license": "MIT"
+}

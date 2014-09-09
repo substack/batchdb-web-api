@@ -1,4 +1,3 @@
-var batchdb = require('batchdb-shell');
 var Router = require('routes');
 var through = require('through2');
 var inherits = require('inherits');
