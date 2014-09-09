@@ -51,8 +51,7 @@ These routes are handled by the web api:
 * `/list/job` - list the jobs
 * `/list/pending` - list the pending instances
 * `/list/result` - list results
-* `/job/:id` - fetch job content by its id
-* `/result/:id` - fetch job results by result id
+* `/blob/:id` - fetch job or result blob content by its id
 
 # install
 
