@@ -15,7 +15,7 @@ var tmpdir = path.join(
 mkdirp.sync(tmpdir);
 
 test('api', function (t) {
-    t.plan(6);
+    t.plan(7);
     
     var db = level(path.join(tmpdir, 'db'));
     var compute = batchdb(db, {
@@ -46,6 +46,9 @@ test('api', function (t) {
             t.equal(rows.length, 1);
             t.equal(rows[0].value.hash, id);
         });
+        send('GET', '/list/blah', function (body, res) {
+            t.equal(res.statusCode, 404);
+        });
     });
     
     send('POST', '/create', function (body) {
@@ -59,7 +62,7 @@ test('api', function (t) {
         req.url = u;
         req.method = method;
         
-        var res = concat(cb);
+        var res = concat(function (body) { cb(body, res) });
         var m = api.exec(req, res);
         return req;
     }
