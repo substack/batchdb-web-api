@@ -19,9 +19,7 @@ test('match', function (t) {
     var db = level(path.join(tmpdir, 'db'));
     var compute = batchdb(db, {
         path: path.join(tmpdir, 'blob'),
-        run: function () {
-            t.fail('no');
-        }
+        run: function () {}
     });
     var api = webapi(compute);
     
