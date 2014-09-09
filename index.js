@@ -51,16 +51,9 @@ Server.prototype._createRouter = function (opts) {
         })).pipe(res);
     });
     
-    router.addRoute('/result/:id', function (req, res, m) {
+    router.addRoute('/blob/:id', function (req, res, m) {
         if (req.method !== 'GET') return error(404, res, 'not a GET');
         var s = self.compute.getResult(m.params.id);
-        s.on('error', function (err) { error(500, res, err) });
-        s.pipe(res);
-    });
-    
-    router.addRoute('/job/:id', function (req, res, m) {
-        if (req.method !== 'GET') return error(404, res, 'not a GET');
-        var s = self.compute.getJob(m.params.id);
         s.on('error', function (err) { error(500, res, err) });
         s.pipe(res);
     });

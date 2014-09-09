@@ -32,10 +32,10 @@ test('api', function (t) {
     var api = webapi(compute);
     
     compute.on('result', function (key, id) {
-        send('GET', '/job/' + key, function (body) {
+        send('GET', '/blob/' + key, function (body) {
             t.equal(body.toString('utf8'), 'robot');
         });
-        send('GET', '/result/' + id, function (body) {
+        send('GET', '/blob/' + id, function (body) {
             t.equal(body.toString('utf8'), 'beep boop\n');
         });
     });
