@@ -17,7 +17,7 @@ var api = require('batchdb-web-api')(compute);
 compute.run();
 
 var server = http.createServer(function (req, res) {
-    if (batchweb.exec(req, res)) return;
+    if (api.exec(req, res)) return;
     res.statusCode = 404;
     res.end('not found\n');
 });
